@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
 
-const slice = createSlice({
+const adapter = createEntityAdapter({
+    selectId: (register) => register.uid
+})
+
+export const { selectAll, selectById } = adapter.getSelectors((state) => state.register)
+
+export const RegistrationSlice = createSlice({
     name: 'Registration',
-    initialState: {
-        name: 'abc',
-        password: null
-    },
+    initialState: adapter.getInitialState(),
     reducers: {
-        register(state, { payload }){
-            return state.name = payload.name,
-            state.password = payload.password
-        }
+        addUser: adapter.addOne
     }
 })
 
-export const { register } = slice.actions
-export default slice.reducer
+export const { addUser } = RegistrationSlice.actions
+export default RegistrationSlice.reducer

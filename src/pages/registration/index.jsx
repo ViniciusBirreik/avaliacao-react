@@ -1,7 +1,7 @@
 import { TextField, Grid, Button, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { register } from '../../store/modules/registration/registrationSlice'
+import { addUser } from '../../store/modules/registration/registrationSlice'
 
 export default function Registration() {
     const name = useSelector(state => state.name)
@@ -17,8 +17,8 @@ export default function Registration() {
 
         if(userName.length >= 4 && userPassword.length >= 6) {
             window.location.href = '/errands'
-            dispatch(register({
-                name, password
+            dispatch(addUser({
+                uid: 1, name: userName, password: userPassword
             }))
         }else{
             alert('Usuário ou senha inválidos, lembre-se: a senha deve ter pelo menos 6 caracters e o nome pelo menos 4')
